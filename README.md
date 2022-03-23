@@ -1,2 +1,2 @@
-# hackerrank_challanges
+#HackerRank #LeetCode
 I will submit my solutions

@@ -1,43 +1,22 @@
-using System;
-using System.Collections.Generic;
-
-class Program {
-  public static void Main (string[] args) {
 //Given a set of characters, generate all permutations of palindromes
 //input: "kaakyy"
 //output: "kayak, akyka" kay, ayk, yak
 //input: "racecar"
 //output: "racecar", "rcaeacr", "arcecra", "acrerca", "carerac", "craearc"
 
-    var s = "racecar";
-    //var s = "kaakyy";
+using System;
+using System.Collections.Generic;
+
+class Program {
+  public static void Main (string[] args) {
+    //var s = "racecar";
+    var s = "kaakyy";
     //var s = "abb";
     
-    var result = PrintAllPermutations(s);
-
-    //Prints Palindromes only
-    var hashSet = new HashSet<string>();
-    foreach(var z in result){
-      if(!hashSet.Contains(String.Join("",z)) 
-         && isSubStrPlaindrome(String.Join("",z))){
-        hashSet.Add(String.Join("", z));
-      }
-    }
-    foreach(var z in hashSet){
-      Console.WriteLine("PalindRome: " + z);
-        Console.WriteLine("-----");
-    }
-    
-    //Prints all permutations
-    /*
-    Console.WriteLine("All Permutations: ");
-    foreach(var z in result){
-       Console.Write(String.Join("", z)+" , ");
-       Console.WriteLine("-----");
-     }
-    */
+    Print(GetPalindromes(GenerateAllPermutations(s)));
+    Print(GenerateAllPermutations(s));
   }
-  public static IList<IList<string>> PrintAllPermutations(string s){
+  public static IList<IList<string>> GenerateAllPermutations(string s){
     var result = new List<IList<string>>();
     if(s.Length == 1){ 
       result.Add(new List<string>{s});
@@ -46,7 +25,7 @@ class Program {
     for(int i =0; i< s.Length ; i++){
       var firstChar = s[0];
       s = s.Remove(0,1);
-      var rr = PrintAllPermutations(s);
+      var rr = GenerateAllPermutations(s);
       foreach(var r in rr){
         r.Add(firstChar.ToString());
         result.Add(r);
@@ -55,6 +34,7 @@ class Program {
     }
     return result;
   }
+  
   //Check wether the string is palindrome?
   public static bool isSubStrPlaindrome(string s){
     if(String.IsNullOrEmpty(s) || String.IsNullOrWhiteSpace(s) || s.Length == 1)
@@ -70,5 +50,32 @@ class Program {
       }
     }
     return true;
+  }
+
+  //Collect Palindromes only
+  public static HashSet<string> GetPalindromes(IList<IList<string>> permutatedStrings){
+    var hashSet = new HashSet<string>();
+    foreach(var z in permutatedStrings){
+      if(!hashSet.Contains(String.Join("",z)) 
+         && isSubStrPlaindrome(String.Join("",z))){
+        hashSet.Add(String.Join("", z));
+      }
+    }
+    return hashSet;
+  }
+  
+  public static void Print(IList<IList<string>> permutatedStrings){
+    Console.WriteLine("All Permutations:");
+    Console.WriteLine("=================");
+    foreach(var z in permutatedStrings){
+       Console.WriteLine(String.Join("", z));
+     }
+  }
+  public static void Print(HashSet<string> permutatedHashSet){
+    Console.WriteLine("All PlanidRome Permutations:");
+    Console.WriteLine("============================");
+    foreach(var z in permutatedHashSet){
+       Console.WriteLine(z);
+     }
   }
 }

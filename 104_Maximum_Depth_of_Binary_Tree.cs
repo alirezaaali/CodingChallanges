@@ -18,8 +18,8 @@ public class Solution {
     
     public int GetTreeDepths_Recursive(TreeNode root){
         if(root==null) return 0;
-        int left=MaxDepth(root.left);
-        int right=MaxDepth(root.right);
+        int left=GetTreeDepths_Recursive(root.left);
+        int right=GetTreeDepths_Recursive(root.right);
         return 1+Math.Max(left,right);
   }
 }

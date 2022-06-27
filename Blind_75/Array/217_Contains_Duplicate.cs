@@ -1,6 +1,7 @@
 public class Solution {
     public bool ContainsDuplicate(int[] nums) {
-
+        /*
+        //Dictionary
         var dict = new Dictionary<int, int>();
         
         for(int i=0; i< nums.Length; i++){            
@@ -11,8 +12,19 @@ public class Solution {
             }
         }
         return false;
+        */
+        
+        //HashSet
+        var hashset = new HashSet<int>();
+        foreach(var i in nums){
+            if(!hashset.Contains(i)){
+                hashset.Add(i);
+            }else{
+                return true;
+            }
+        }
+        return false;
     }
 }
-
 
 //https://leetcode.com/problems/contains-duplicate/
